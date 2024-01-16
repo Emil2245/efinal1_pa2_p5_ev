@@ -19,7 +19,7 @@ public class Transferencia {
     private BigDecimal monto;
     @Column(name = "tran_comision")
     private BigDecimal comision;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tran_cuenta_origen")
     private CuentaBancaria cuentaOrigen;
     @ManyToOne(cascade = CascadeType.ALL)

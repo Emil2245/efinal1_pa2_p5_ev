@@ -30,8 +30,8 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 
     @Override
     public void transferir(String ctaOrigen, String ctaDestino, BigDecimal monto) {
-        CuentaBancaria cuentaOrigen= new CuentaBancaria();
-        CuentaBancaria cuentaDestino=cuentaOrigen;
+        CuentaBancaria cuentaOrigen= this.iCuentaBancariaRepo.select(ctaOrigen);
+        CuentaBancaria cuentaDestino=this.iCuentaBancariaRepo.select(ctaDestino);
 
         //verificar saldo
         BigDecimal saldoOrigen = cuentaOrigen.getSaldo();
@@ -43,11 +43,11 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
             return;
         }
         Transferencia transferencia = new Transferencia();
-        transferencia.setCuentaDestino(cuentaDestino);
-        transferencia.setCuentaOrigen(cuentaOrigen);
-        transferencia.setComision(comision);
         transferencia.setFecha(LocalDate.now());
         transferencia.setMonto(monto);
+        transferencia.setComision(comision);
+        transferencia.setCuentaOrigen(cuentaOrigen);
+        transferencia.setCuentaDestino(cuentaDestino);
 
         saldoOrigen=saldoOrigen.subtract(monto);
         saldoOrigen=saldoOrigen.subtract(comision);
@@ -57,7 +57,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
         cuentaOrigen.setSaldo(saldoOrigen);
         cuentaDestino.setSaldo(saldoDestino);
 
-        this.iCuentaBancariaRepo.update(cuentaDestino);
+        this.iCuentaBancariaRepo.update(cuentaOrigen);
         this.iCuentaBancariaRepo.update(cuentaDestino);
 
         this.iTransferenciaRepo.insert(transferencia);

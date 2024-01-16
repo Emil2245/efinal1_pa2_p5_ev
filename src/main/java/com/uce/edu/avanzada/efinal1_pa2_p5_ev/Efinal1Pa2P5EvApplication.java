@@ -50,13 +50,13 @@ public class Efinal1Pa2P5EvApplication implements CommandLineRunner {
         cuentaDestino.setPropietario(propietario2);
 
 
-        this.iCuentaBancariaService.insert(cuentaOrigen);
-        this.iCuentaBancariaService.insert(cuentaDestino);
+//        this.iCuentaBancariaService.insert(cuentaOrigen);
+//        this.iCuentaBancariaService.insert(cuentaDestino);
 
-//        this.iTransferenciaService.transferir("0","2",new BigDecimal(60));
+        this.iTransferenciaService.transferir("0","2",new BigDecimal(60));
 
-//        List< Transferencia> tr=this.iTransferenciaService.buscarAllTransferencias();
-//        tr.stream().forEach(System.out::println);
+        List< Transferencia> tr=this.iTransferenciaService.buscarAllTransferencias();
+        tr.stream().forEach(System.out::println);
 
 
     }

@@ -24,7 +24,7 @@ public class TransferenciaRepoImpl implements ITransferenciaRepo{
 
     @Override
     public void insert(Transferencia transferencia) {
-        this.entityManager.persist(transferencia);
+        this.entityManager.merge(transferencia);
     }
 
 }
